@@ -1,0 +1,6 @@
+{
+  "name": "Guía de Proverbios",
+  "description": "Sabiduría práctica diaria de los Proverbios bíblicos para finanzas, ansiedad, relaciones y hábitos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

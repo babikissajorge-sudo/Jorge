@@ -1,0 +1,245 @@
+{
+  "entities": {
+    "userProfile": {
+      "title": "UserProfile",
+      "description": "Stores user profile and synchronization status.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Unique identifier of the user matching Firebase Auth UID."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the authenticated user."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name of the authenticated user."
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "Optional profile photo URL."
+        },
+        "fontSizeFactor": {
+          "type": "number",
+          "description": "User selected font scale multiplier."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO timestamp of the last synchronization."
+        }
+      },
+      "required": ["userId", "email"]
+    },
+    "userFavorite": {
+      "title": "UserFavorite",
+      "description": "A verse bookmarked by the user.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Firebase Auth UID of the owner."
+        },
+        "verseId": {
+          "type": "number",
+          "description": "ID of the proverbs verse."
+        },
+        "chapter": {
+          "type": "number",
+          "description": "Chapter number (1 to 31)."
+        },
+        "verseNumber": {
+          "type": "number",
+          "description": "Verse number within the chapter."
+        },
+        "reference": {
+          "type": "string",
+          "description": "Reference string, e.g. Proverbios 3:5."
+        },
+        "text": {
+          "type": "string",
+          "description": "Biblical text of the verse."
+        },
+        "isFavorite": {
+          "type": "boolean",
+          "description": "Whether the verse is currently in favorites."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when this favorite was saved."
+        }
+      },
+      "required": ["userId", "verseId", "chapter", "verseNumber", "isFavorite"]
+    },
+    "userNote": {
+      "title": "UserNote",
+      "description": "Personal note or reflection on a proverbs verse.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Firebase Auth UID of the owner."
+        },
+        "verseId": {
+          "type": "number",
+          "description": "ID of the proverbs verse."
+        },
+        "note": {
+          "type": "string",
+          "description": "The personal reflection note written by the user."
+        },
+        "reference": {
+          "type": "string",
+          "description": "Reference string for context."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when this note was updated."
+        }
+      },
+      "required": ["userId", "verseId", "note"]
+    },
+    "habitProgress": {
+      "title": "HabitProgress",
+      "description": "Completion state of a day in a 66-day habit challenge.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Firebase Auth UID of the owner."
+        },
+        "challengeId": {
+          "type": "string",
+          "description": "Identifier of the 66-day challenge."
+        },
+        "dayNumber": {
+          "type": "number",
+          "description": "Day number from 1 to 66."
+        },
+        "isCompleted": {
+          "type": "boolean",
+          "description": "Whether the day was completed."
+        },
+        "completedDate": {
+          "type": "number",
+          "description": "Epoch timestamp in milliseconds when marked completed."
+        }
+      },
+      "required": ["userId", "challengeId", "dayNumber", "isCompleted"]
+    },
+    "journalEntry": {
+      "title": "JournalEntry",
+      "description": "A personal journal log entry for a habit challenge.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Firebase Auth UID of the owner."
+        },
+        "challengeId": {
+          "type": "string",
+          "description": "Identifier of the challenge."
+        },
+        "dayNumber": {
+          "type": "number",
+          "description": "Day number of the entry."
+        },
+        "feelings": {
+          "type": "string",
+          "description": "Feelings reflection."
+        },
+        "achievements": {
+          "type": "string",
+          "description": "Achievements reflection."
+        },
+        "verseText": {
+          "type": "string",
+          "description": "Associated verse text."
+        },
+        "verseReference": {
+          "type": "string",
+          "description": "Associated verse reference."
+        },
+        "date": {
+          "type": "number",
+          "description": "Timestamp in milliseconds."
+        }
+      },
+      "required": ["userId", "challengeId", "dayNumber", "feelings", "achievements"]
+    },
+    "habitCertificate": {
+      "title": "HabitCertificate",
+      "description": "Earned certificate for finishing 66 days of a challenge.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Firebase Auth UID of the owner."
+        },
+        "challengeId": {
+          "type": "string",
+          "description": "Identifier of the completed challenge."
+        },
+        "challengeTitle": {
+          "type": "string",
+          "description": "Title of the completed challenge."
+        },
+        "userName": {
+          "type": "string",
+          "description": "Name printed on the certificate."
+        },
+        "completionDate": {
+          "type": "number",
+          "description": "Timestamp when finished."
+        },
+        "startDate": {
+          "type": "number",
+          "description": "Timestamp when started."
+        },
+        "featuredVerseRef": {
+          "type": "string",
+          "description": "Verse reference highlighted on certificate."
+        },
+        "featuredVerseText": {
+          "type": "string",
+          "description": "Verse text highlighted on certificate."
+        },
+        "motivationalPhrase": {
+          "type": "string",
+          "description": "Coach motivational conclusion."
+        }
+      },
+      "required": ["userId", "challengeId", "challengeTitle", "userName", "completionDate"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "userProfile",
+      "description": "User profile with display settings and sync metadata."
+    },
+    "/users/{userId}/favorites/{verseId}": {
+      "schema": "userFavorite",
+      "description": "Bookmarked favorite verses backed up to the cloud."
+    },
+    "/users/{userId}/notes/{verseId}": {
+      "schema": "userNote",
+      "description": "Personal reflection notes on specific verses."
+    },
+    "/users/{userId}/habitProgress/{progressDocId}": {
+      "schema": "habitProgress",
+      "description": "66-day habit challenge completion progress."
+    },
+    "/users/{userId}/journalEntries/{entryId}": {
+      "schema": "journalEntry",
+      "description": "Daily journal thoughts and achievements for habit challenges."
+    },
+    "/users/{userId}/certificates/{certId}": {
+      "schema": "habitCertificate",
+      "description": "Earned habit completion certificates."
+    }
+  }
+}
